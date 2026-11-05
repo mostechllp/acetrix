@@ -74,6 +74,80 @@ export default function LocationsPage({ onNavigate }) {
 
   const filteredHubs = selectedHub === 'all' ? hubs : hubs.filter((h) => h.id === selectedHub)
 
+  const showcaseData = {
+    all: {
+      image: '/images/uae-presence-map-new.jpg',
+      fallbackImage: '/images/uae-presence-map.jpg',
+      alt: 'Acetrix 3D UAE Relief Map showcasing Dubai & India Hubs',
+      liveBadge: 'Live UAE Regulatory & Advisory Grid',
+      title: 'Dual-Shore Footprint',
+      subtitle: 'Coordinated regional advisory with offshore speed',
+      items: [
+        {
+          badge: '🇦🇪',
+          badgeClass: 'uae-pin',
+          title: 'Dubai Office (UAE)',
+          desc: 'Client onboarding, FTA tax filings, audit representations, and freezone authority filings.',
+        },
+        {
+          badge: '🇮🇳',
+          badgeClass: 'ind-pin',
+          title: 'India Office',
+          desc: 'High-volume bookkeeping, continuous bank statement reconciliation, software configuration, and backlog sorting.',
+        },
+      ],
+      footer: 'Approved Financial & Tax Specialists across UAE and India',
+    },
+    dubai: {
+      image: '/images/uae-presence-map-new.jpg',
+      fallbackImage: '/images/uae-presence-map.jpg',
+      alt: 'Acetrix UAE Presence Map - Dubai Commercial & Freezone Hub',
+      liveBadge: 'Live UAE Regulatory & Advisory Grid',
+      title: 'Dubai Advisory & Commercial Hub',
+      subtitle: 'Direct partner advisory, statutory audits, and FTA tax filings',
+      items: [
+        {
+          badge: '🇦🇪',
+          badgeClass: 'uae-pin',
+          title: 'Dubai Office (UAE)',
+          desc: 'Client onboarding, FTA tax filings, audit representations, and freezone authority filings.',
+        },
+        {
+          badge: '🏛️',
+          badgeClass: 'uae-pin',
+          title: 'Key UAE Jurisdictions Covered',
+          desc: 'Dubai Mainland LLCs, DMCC, DIFC, JAFZA, DAFZA, Abu Dhabi Global Market (ADGM), and Northern Emirates.',
+        },
+      ],
+      footer: 'Approved Financial & Tax Specialists across the UAE',
+    },
+    india: {
+      image: '/images/Neon Mumbai Maharashtra Map Infographic.png',
+      fallbackImage: '/images/india-mumbai-map.png',
+      alt: 'Acetrix India Operations & Delivery Hub - Mumbai & Maharashtra Map',
+      liveBadge: 'Live India Operations & Delivery Grid',
+      title: 'India Delivery & Operations Hub',
+      subtitle: 'High-volume execution, automation, and backlog processing center',
+      items: [
+        {
+          badge: '🇮🇳',
+          badgeClass: 'ind-pin',
+          title: 'India Delivery Center (Maharashtra)',
+          desc: 'High-volume bookkeeping, continuous bank statement reconciliation, software configuration, and backlog sorting.',
+        },
+        {
+          badge: '📍',
+          badgeClass: 'ind-pin',
+          title: 'Kalyan, Thane (Mumbai Metropolitan Region)',
+          desc: 'Opp. Metro Mall, Kalyan Shil Road. Delivering high-throughput accounting automation and rapid backlog clearance.',
+        },
+      ],
+      footer: 'Dedicated Operations & Automation Center across India',
+    },
+  }
+
+  const currentShowcase = showcaseData[selectedHub] || showcaseData.all
+
   return (
     <div className="inner-page locations-page">
       {/* Page Hero */}
@@ -124,19 +198,25 @@ export default function LocationsPage({ onNavigate }) {
         </div>
       </section>
 
-      {/* 3D UAE Map Featured Section */}
+      {/* Regional Map Featured Section */}
       <section className="section map-feature-section">
         <div className="container">
           <div className="map-showcase-wrapper">
             <div className="map-showcase-image-box">
               <img
-                src="/images/uae-presence-map-new.jpg"
-                alt="Acetrix 3D UAE Relief Map showcasing Dubai & India Hubs"
+                key={currentShowcase.image}
+                src={currentShowcase.image}
+                alt={currentShowcase.alt}
                 className="map-feature-img"
+                onError={(e) => {
+                  if (currentShowcase.fallbackImage && e.currentTarget.src !== currentShowcase.fallbackImage) {
+                    e.currentTarget.src = currentShowcase.fallbackImage
+                  }
+                }}
               />
               <div className="map-live-indicator">
                 <span className="pulse-ring" />
-                <span>Live UAE Regulatory & Advisory Grid</span>
+                <span>{currentShowcase.liveBadge}</span>
               </div>
             </div>
 
@@ -144,31 +224,26 @@ export default function LocationsPage({ onNavigate }) {
               <div className="legend-head">
                 <Building2 size={20} className="legend-icon" />
                 <div>
-                  <h3>Dual-Shore Footprint</h3>
-                  <p>Coordinated regional advisory with offshore speed</p>
+                  <h3>{currentShowcase.title}</h3>
+                  <p>{currentShowcase.subtitle}</p>
                 </div>
               </div>
 
               <div className="legend-items">
-                <div className="legend-item">
-                  <span className="pin-badge uae-pin">🇦🇪</span>
-                  <div>
-                    <strong>Dubai Office (UAE)</strong>
-                    <p>Client onboarding, FTA tax filings, audit representations, and freezone authority filings.</p>
+                {currentShowcase.items.map((item, idx) => (
+                  <div className="legend-item" key={idx}>
+                    <span className={`pin-badge ${item.badgeClass}`}>{item.badge}</span>
+                    <div>
+                      <strong>{item.title}</strong>
+                      <p>{item.desc}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="legend-item">
-                  <span className="pin-badge ind-pin">🇮🇳</span>
-                  <div>
-                    <strong>India Office</strong>
-                    <p>High-volume bookkeeping, continuous bank statement reconciliation, software configuration, and backlog sorting.</p>
-                  </div>
-                </div>
+                ))}
               </div>
 
               <div className="legend-footer">
                 <ShieldCheck size={18} />
-                <span>Approved Financial & Tax Specialists across UAE and India</span>
+                <span>{currentShowcase.footer}</span>
               </div>
             </div>
           </div>
@@ -286,7 +361,7 @@ export default function LocationsPage({ onNavigate }) {
       <section className="about-cta-strip">
         <div className="container cta-flex">
           <div className="cta-text">
-            <h3>Prefer an In-Person Meeting at Our Dubai, Abu Dhabi, or Sharjah Office?</h3>
+            <h3>{selectedHub === 'india' ? 'Prefer an In-Person Meeting at Our India Delivery Center or Dubai Office?' : 'Prefer an In-Person Meeting at Our Dubai, Abu Dhabi, or Sharjah Office?'}</h3>
             <p>Schedule a private boardroom consultation with our Practice Directors.</p>
           </div>
           <div className="cta-actions">

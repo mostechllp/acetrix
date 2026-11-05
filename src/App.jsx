@@ -32,6 +32,7 @@ import {
   Mail,
   MapPin,
   Menu,
+  MessageCircle,
   MessageSquareText,
   Phone,
   Quote,
@@ -890,18 +891,18 @@ function UAEPresence() {
             <div className="uae-map-header-badges">
               <div className="uae-live-badge">
                 <span className="uae-pulse-dot" aria-hidden="true" />
-                <span>Live UAE Advisory Hubs</span>
+                <span>{locations[activeLocation].id === 'india' ? 'Live India Delivery Center' : 'Live UAE Advisory Hubs'}</span>
               </div>
               <div className="uae-fta-badge">
                 <ShieldCheck size={13} />
-                <span>FTA Registered Tax Agency</span>
+                <span>{locations[activeLocation].id === 'india' ? 'Global Delivery Hub' : 'FTA Registered Tax Agency'}</span>
               </div>
             </div>
 
             <div className="uae-map-image-wrapper">
               <img
-                src="/images/uae-presence-map-new.jpg"
-                alt="Acetrix 3D UAE Presence Map - Dubai, Abu Dhabi, Sharjah & India"
+                src={locations[activeLocation].id === 'india' ? '/images/Neon Mumbai Maharashtra Map Infographic.png' : '/images/uae-presence-map-new.jpg'}
+                alt={locations[activeLocation].id === 'india' ? 'Acetrix India Delivery Center - Mumbai & Maharashtra Map' : 'Acetrix 3D UAE Presence Map - Dubai, Abu Dhabi, Sharjah & India'}
                 className="uae-map-image"
                 loading="lazy"
               />
@@ -988,8 +989,15 @@ function UAEPresence() {
             >
               Schedule UAE Consultation <ArrowRight size={15} />
             </a>
-            <a className="button button-secondary uae-call-btn" href="tel:+971506535070">
-              <Phone size={15} />
+            <a
+              className="button button-secondary uae-call-btn"
+              href="https://wa.me/971506535070"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Chat on WhatsApp (+971 50 653 5070)"
+              aria-label="Chat on WhatsApp +971 50 653 5070"
+            >
+              <MessageCircle size={15} />
               <span>+971 50 653 5070</span>
             </a>
           </div>
