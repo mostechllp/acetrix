@@ -41,7 +41,7 @@ export default function ContactPage({ onNavigate }) {
       flag: '🇦🇪',
       address: 'Dubai, United Arab Emirates',
       phone: '+971 50 653 5070',
-      email: 'info@acetrix.com',
+      email: 'info@acetrix.ae',
       hours: '09:00 to 18:00 All Week / Sunday Off',
       status: 'Open Now',
     },

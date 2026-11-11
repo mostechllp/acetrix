@@ -1725,9 +1725,9 @@ function Footer({ onNavigate }) {
         <div className="footer-column footer-contact">
           <h3>Get in Touch</h3>
           <div className="footer-contact-details">
-            <a href="mailto:info@acetrix.com" className="footer-contact-item">
+            <a href="mailto:info@acetrix.ae" className="footer-contact-item">
               <Mail size={18} />
-              <span>info@acetrix.com</span>
+              <span>info@acetrix.ae</span>
             </a>
             <a href="tel:+971506535070" className="footer-contact-item">
               <Phone size={18} />
